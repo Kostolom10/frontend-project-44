@@ -4,25 +4,34 @@ import readlineSync from "readline-sync";
 console.log("Welcome to the Brain Games");
 const name = readlineSync.question("May I have your name?  ");
 console.log(`Hello, ${name}`);
-const operators = ["+", "-", "*"];
+console.log('Answer "yes" if given number is prime. Otherwise answer "no".');
 let score = 0;
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-console.log("What is the result of the expression?");
+function isPrime(num) {
+  for (let i = 2; i < num; i++) {
+    if (num % i === 0) {
+      return false;
+    }
+  }
+  return num !== 1;
+}
 while (true) {
-  let num1 = getRandomInt(1, 50);
-  let num2 = getRandomInt(1, 50);
-  let operator = operators[getRandomInt(0, 2)];
-
-  let correctAnswer = eval(`${num1}${operator}${num2}`);
-  console.log(`question: ${num1} ${operator} ${num2}`);
+  let secretNumber = getRandomInt(1, 100);
+  let correctAnswer;
+  if (isPrime(secretNumber) === true) {
+    correctAnswer = "yes";
+  } else {
+    correctAnswer = "no";
+  }
+  console.log(`Question : ${secretNumber}`);
   let userAnswer = readlineSync.question("Your answer: ");
-  if (userAnswer == correctAnswer) {
+  if (userAnswer === correctAnswer) {
     console.log("Correct!");
     score++;
-    if (score == 3) {
-      console.log(`Congratulations, ${name}`);
+    if (score === 3) {
+      console.log(`Congratulions, ${name}`);
       break;
     }
   } else {
@@ -32,5 +41,4 @@ while (true) {
     console.log(`Let's try again, ${name}`);
     break;
   }
-  //console.log(correctAnswer);
 }

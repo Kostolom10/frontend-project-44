@@ -20,8 +20,9 @@ while (correctAnswer < 3) {
     correctAnswer++;
   } else {
     console.log(
-      "'yes' is wrong answer ;(. Correct answer was 'no'.Let's try again, Bill!"
+      `${userAnswer} is wrong answer ;(. Correct answer was ${correctAnswer}.`
     );
+    console.log(`Let's try again, ${name}`);
     break;
   }
 }

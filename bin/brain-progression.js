@@ -4,24 +4,27 @@ import readlineSync from "readline-sync";
 console.log("Welcome to the Brain Games");
 const name = readlineSync.question("May I have your name?  ");
 console.log(`Hello, ${name}`);
-const operators = ["+", "-", "*"];
 let score = 0;
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-console.log("What is the result of the expression?");
 while (true) {
-  let num1 = getRandomInt(1, 50);
-  let num2 = getRandomInt(1, 50);
-  let operator = operators[getRandomInt(0, 2)];
-
-  let correctAnswer = eval(`${num1}${operator}${num2}`);
-  console.log(`question: ${num1} ${operator} ${num2}`);
+  const progression = [];
+  let between = getRandomInt(1, 10);
+  let start = getRandomInt(1, 20);
+  for (let i = start; progression.length < 10; i = i + between) {
+    progression.push(i);
+  }
+  let secretindex = getRandomInt(0, 9);
+  let correctAnswer = progression[secretindex];
+  progression[secretindex] = "..";
+  let str = progression.join(" ");
+  console.log(`Question: ${str}`);
   let userAnswer = readlineSync.question("Your answer: ");
-  if (userAnswer == correctAnswer) {
-    console.log("Correct!");
+  if (correctAnswer == userAnswer) {
     score++;
-    if (score == 3) {
+    console.log("correct!");
+    if (score === 3) {
       console.log(`Congratulations, ${name}`);
       break;
     }
@@ -32,5 +35,4 @@ while (true) {
     console.log(`Let's try again, ${name}`);
     break;
   }
-  //console.log(correctAnswer);
 }
